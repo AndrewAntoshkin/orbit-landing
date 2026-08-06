@@ -21,13 +21,28 @@ const WORD_LABELS = [
   "Шаги",
 ] as const;
 
+const WORD_STROKES = [
+  "#FF7A3D",
+  "#F5E642",
+  "#7CDB6A",
+  "#9B7BFF",
+  "#7EC8FF",
+  "#FF8FB8",
+  "#3B82F6",
+  "#A3E635",
+] as const;
+
 /** Старт сверху (−90°), шаг 45° — 8 точек на равном расстоянии. */
 const WORDS = WORD_LABELS.map((label, i) => ({
   label,
+  stroke: WORD_STROKES[i % WORD_STROKES.length]!,
   angle: -90 + i * (360 / WORD_LABELS.length),
 }));
 
 const RING_RADIUS = 200;
+
+const PILL_CLASS =
+  "block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border-[2.5px] bg-transparent px-3.5 py-1.5 text-[13px] font-medium text-[#111111] [[data-theme=dark]_&]:text-white sm:px-4 sm:py-2 sm:text-[15px]";
 
 function LogoMark({ className = "h-16 w-16" }: { className?: string }) {
   return (
@@ -45,10 +60,12 @@ function LogoMark({ className = "h-16 w-16" }: { className?: string }) {
 
 function ConvergeWord({
   label,
+  stroke,
   angle,
   progress,
 }: {
   label: string;
+  stroke: string;
   angle: number;
   progress: MotionValue<number>;
 }) {
@@ -75,7 +92,7 @@ function ConvergeWord({
       }}
       className="pointer-events-none absolute left-1/2 top-1/2"
     >
-      <span className="block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[var(--raised)] px-3.5 py-1.5 text-[13px] font-medium text-[var(--text)] shadow-[var(--shadow-raised)] ring-1 ring-[var(--line)] sm:px-4 sm:py-2 sm:text-[15px]">
+      <span className={PILL_CLASS} style={{ borderColor: stroke }}>
         {label}
       </span>
     </motion.div>
@@ -91,7 +108,8 @@ function StaticFallback() {
           {WORDS.map((w) => (
             <span
               key={w.label}
-              className="rounded-full bg-[var(--chip)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-soft)]"
+              className="rounded-full border-[2.5px] bg-transparent px-3 py-1.5 text-[13px] font-medium text-[#111111] [[data-theme=dark]_&]:text-white"
+              style={{ borderColor: w.stroke }}
             >
               {w.label}
             </span>
@@ -167,6 +185,7 @@ export default function ConvergeSection() {
             <ConvergeWord
               key={w.label}
               label={w.label}
+              stroke={w.stroke}
               angle={w.angle}
               progress={scrollYProgress}
             />

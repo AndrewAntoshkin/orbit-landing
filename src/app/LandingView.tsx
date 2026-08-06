@@ -666,70 +666,69 @@ export default function LandingView() {
         <motion.section
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          className="mx-auto flex max-w-2xl flex-col items-center px-6 py-20 text-center"
+          viewport={{ once: true, margin: "-40px" }}
+          className="relative isolate min-h-[100svh] w-full overflow-hidden"
         >
-          <motion.p
-            custom={0}
-            variants={fadeUp}
-            className="text-[12px] font-medium tracking-wide text-[var(--text-faint)]"
-          >
-            Сейчас
-          </motion.p>
-          <motion.h3
-            custom={1}
-            variants={blurIn}
-            className="mt-3 font-display text-2xl font-medium tracking-tight text-balance text-[var(--text)] sm:text-[1.85rem]"
-          >
-            {typo("Орбит работает с контекстом HRTECHDESIGN и HRDS")}
-          </motion.h3>
-          <motion.p
-            custom={2}
-            variants={fadeUp}
-            className="mt-3 max-w-md text-[15px] leading-relaxed text-pretty text-[var(--text-muted)]"
-          >
-            {typo("Эту же проверяемую информацию могут использовать AI-агенты через")}
-            {"\u00a0"}
-            <code className="rounded-md bg-[var(--chip)] px-1.5 py-0.5 text-[13px] text-[var(--text-soft)]">
-              orbit.ask
-            </code>
-            ,{" "}
-            <code className="rounded-md bg-[var(--chip)] px-1.5 py-0.5 text-[13px] text-[var(--text-soft)]">
-              orbit.neighborhood
-            </code>{" "}
-            и{"\u00a0"}
-            <code className="rounded-md bg-[var(--chip)] px-1.5 py-0.5 text-[13px] text-[var(--text-soft)]">
-              orbit.search
-            </code>
-            .
-          </motion.p>
-          <motion.div custom={3} variants={fadeUp}>
-            <a
-              href="#ask"
-              className="mt-8 inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-[14px] font-medium text-[var(--accent-fg)] transition hover:bg-[var(--accent-hover)]"
-            >
-              {typo("Как это работает")}
-            </a>
-          </motion.div>
-        </motion.section>
+          <div className="absolute inset-0 z-0">
+            <GravityGallery count={20} size={80} startWhenVisible />
+          </div>
 
-        <footer className="relative mt-8 w-full">
-          <div className="relative h-[min(42vw,320px)] min-h-[220px] w-full">
-            <GravityGallery count={20} size={81} />
-            <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-1 px-6 text-center text-[12px] text-pretty text-[var(--text-faint)]">
-              <div className="rounded-2xl bg-[var(--app-bg)]/75 px-4 py-2 backdrop-blur-sm">
-                <p>
-                  {typo(
-                    "Сделано Андреем Антошкиным для конкурса «Pet Projects 2026»",
-                  )}
-                </p>
-                <p className="mt-0.5">
-                  {typo("Орбит · рабочий контекст отдела дизайна")}
-                </p>
-              </div>
+          <div className="pointer-events-none relative z-10 mx-auto flex min-h-[100svh] max-w-2xl -translate-y-14 flex-col items-center justify-center px-6 py-24 text-center">
+            <motion.p
+              custom={0}
+              variants={fadeUp}
+              className="text-[12px] font-medium tracking-wide text-[var(--text-faint)]"
+            >
+              Сейчас
+            </motion.p>
+            <motion.h3
+              custom={1}
+              variants={blurIn}
+              className="mt-3 font-display text-2xl font-medium tracking-tight text-balance text-[var(--text)] sm:text-[1.85rem]"
+            >
+              {typo("Орбит работает с контекстом HRTECHDESIGN и HRDS")}
+            </motion.h3>
+            <motion.p
+              custom={2}
+              variants={fadeUp}
+              className="mt-3 max-w-md text-[15px] leading-relaxed text-pretty text-[var(--text-muted)]"
+            >
+              {typo(
+                "Эту же проверяемую информацию могут использовать AI-агенты через",
+              )}
+              {"\u00a0"}
+              <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
+                orbit.ask
+              </code>
+              ,{" "}
+              <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
+                orbit.neighborhood
+              </code>{" "}
+              и{"\u00a0"}
+              <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
+                orbit.search
+              </code>
+              .
+            </motion.p>
+            <motion.div custom={3} variants={fadeUp} className="pointer-events-auto">
+              <a
+                href="#ask"
+                className="mt-8 inline-flex rounded-full bg-[var(--accent)] px-6 py-3 text-[14px] font-medium text-[var(--accent-fg)] transition hover:bg-[var(--accent-hover)]"
+              >
+                {typo("Как это работает")}
+              </a>
+            </motion.div>
+
+            <div className="mt-16 flex flex-col items-center gap-1 text-[12px] text-pretty text-[var(--text-faint)]">
+              <p>
+                {typo(
+                  "Сделано Андреем Антошкиным для конкурса «Pet Projects 2026»",
+                )}
+              </p>
+              <p>{typo("Орбит · рабочий контекст отдела дизайна")}</p>
             </div>
           </div>
-        </footer>
+        </motion.section>
       </div>
     </MotionConfig>
   );
