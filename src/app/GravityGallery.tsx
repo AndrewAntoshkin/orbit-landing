@@ -175,13 +175,16 @@ export default function GravityGallery({
       const mouseConstraint = Matter.MouseConstraint.create(engine, {
         mouse,
         constraint: {
-          // Originkit Stiffness 62% / Angular 20%
+          // Originkit Stiffness 62%
           stiffness: 0.62,
-          angularStiffness: 0.2,
           damping: 0.08,
           render: { visible: false },
         },
       });
+      // Originkit Angular Stiffness 20% (not in public Matter types)
+      (mouseConstraint.constraint as Matter.Constraint & {
+        angularStiffness?: number;
+      }).angularStiffness = 0.2;
       Matter.Composite.add(engine.world, mouseConstraint);
 
       // Keep page scroll; Matter attaches wheel handlers by default.
