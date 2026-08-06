@@ -715,7 +715,7 @@ export default function LandingView() {
 
         <footer className="relative mt-8 w-full">
           <div className="relative h-[min(42vw,320px)] min-h-[220px] w-full">
-            <GravityGallery count={18} size={72} />
+            <GravityGallery count={20} size={81} />
             <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-1 px-6 text-center text-[12px] text-pretty text-[var(--text-faint)]">
               <div className="rounded-2xl bg-[var(--app-bg)]/75 px-4 py-2 backdrop-blur-sm">
                 <p>
