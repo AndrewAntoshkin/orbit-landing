@@ -1,0 +1,131 @@
+/**
+ * Design tokens extracted from Clarasight home hero
+ * Source: https://www.clarasight.com/?ref=a1.gallery
+ */
+
+:root {
+  /* Brand — midnight purple scale */
+  --cs-midnight-100: #070628;
+  --cs-midnight-60: #07062899;
+  --cs-midnight-20: #07062833;
+  --cs-midnight-10: #0706281a;
+  --cs-midnight-5: #0706280d;
+
+  /* Brand — clarasight purple */
+  --cs-purple-100: #514fee;
+  --cs-purple-70: #514feeb3;
+  --cs-purple-5: #514fee0d;
+
+  /* Brand — off-white */
+  --cs-off-white-100: #f7f7fe;
+  --cs-off-white-70: #f7f7ffb3;
+  --cs-off-white-60: #f7f7ff99;
+  --cs-off-white-10: #f7f7fe1a;
+
+  /* Layout */
+  --cs-nav-height: 78px;
+  --cs-max-width-xs: 640px;
+  --cs-max-width-s: 768px;
+  --cs-max-width-l: 1152px;
+  --cs-radius-m: 24px;
+  --cs-radius-l: 32px;
+  --cs-radius-round: 9999px;
+
+  /* Spacing (core scale) */
+  --cs-space-2xs: 1.25rem;
+  --cs-space-xs: 1.5rem;
+  --cs-space-s: 2rem;
+  --cs-space-xl: 4.5rem;
+  --cs-space-3xl: 8rem;
+
+  /* Typography */
+  --cs-heading-xl-size: 3.25rem;
+  --cs-heading-xl-lh: 3.75rem;
+  --cs-body-s-size: 1rem;
+  --cs-body-s-lh: 1.75rem;
+
+  /* Hero gradient — sRGB fallback (light: settles to off-white) */
+  --cs-hero-gradient: linear-gradient(
+    180deg,
+    #070628 0%,
+    #09083a 4%,
+    #0d0c52 8%,
+    #141173 12%,
+    #1b1894 16%,
+    #2623b8 22%,
+    #3a38d6 28%,
+    #5552ea 36%,
+    #6f6df5 50%,
+    #9a99f8 65%,
+    #c2c1fb 78%,
+    #e3e3fd 88%,
+    #f7f7fe 100%
+  );
+
+  /* Hero dot animation CONFIG (mirrors Clarasight Three.js) */
+  --cs-dot-density: 80;
+  --cs-dot-color: #ffffff;
+  --cs-dot-opacity: 0.92;
+  --cs-dot-content-offset-y: 0.35;
+  --cs-dot-content-scale: 1.2;
+}
+
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  :root {
+    --cs-hero-gradient: linear-gradient(
+      in oklab 180deg,
+      color(display-p3 0.027 0.024 0.157) 0%,
+      color(display-p3 0.031 0.027 0.176) 4%,
+      color(display-p3 0.038 0.033 0.205) 8%,
+      color(display-p3 0.05 0.045 0.22) 12%,
+      color(display-p3 0.065 0.058 0.27) 16%,
+      color(display-p3 0.09 0.082 0.36) 22%,
+      color(display-p3 0.13 0.12 0.5) 28%,
+      color(display-p3 0.19 0.18 0.64) 36%,
+      color(display-p3 0.318 0.31 0.933) 50%,
+      color(display-p3 0.55 0.55 0.96) 65%,
+      color(display-p3 0.75 0.75 0.98) 78%,
+      color(display-p3 0.9 0.9 0.99) 88%,
+      color(display-p3 0.969 0.969 0.996) 100%
+    );
+  }
+}
+
+/*
+ * Dark overrides MUST come after :root / @supports :root.
+ * :root and [data-theme] share specificity (0,1,0) — later wins.
+ * Use :root[data-theme="dark"] so dark always beats plain :root.
+ */
+:root[data-theme="dark"] {
+  --cs-hero-gradient: linear-gradient(
+    180deg,
+    #05040f 0%,
+    #070628 6%,
+    #0c0b42 14%,
+    #15128a 28%,
+    #2a27c4 42%,
+    #3f3cdb 52%,
+    #2a2680 68%,
+    #14122e 84%,
+    #0c0c12 100%
+  );
+  --cs-dot-color: #a8a6e8;
+  --cs-dot-opacity: 0.55;
+}
+
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  :root[data-theme="dark"] {
+    --cs-hero-gradient: linear-gradient(
+      in oklab 180deg,
+      color(display-p3 0.02 0.016 0.06) 0%,
+      color(display-p3 0.027 0.024 0.157) 6%,
+      color(display-p3 0.05 0.045 0.26) 14%,
+      color(display-p3 0.09 0.08 0.54) 28%,
+      color(display-p3 0.16 0.15 0.77) 42%,
+      color(display-p3 0.25 0.24 0.86) 52%,
+      color(display-p3 0.16 0.15 0.5) 68%,
+      color(display-p3 0.08 0.07 0.18) 84%,
+      color(display-p3 0.047 0.047 0.07) 100%
+    );
+  }
+}

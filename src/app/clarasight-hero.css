@@ -1,0 +1,316 @@
+@import "./clarasight-hero.tokens.css";
+
+/* ── Hero shell (Clarasight .home-hero) ── */
+.cs-hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.cs-hero__inner {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--cs-hero-gradient);
+}
+
+/* SVG fractalNoise grain — .home-hero__inner-container::before */
+.cs-hero__inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.028;
+  mix-blend-mode: soft-light;
+}
+
+/* ── Three.js background layer ── */
+.cs-hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Dark: softer glow + fade cloud above sources so labels stay readable */
+[data-theme="dark"] .cs-hero__background {
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.35) 72%,
+    transparent 88%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.35) 72%,
+    transparent 88%
+  );
+}
+
+.cs-hero__background-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("https://cdn.prod.website-files.com/69bd9a3628f03d7aa1b12d3f/69d5b3a1c5c63e1a6cb35f4d_08854565a567bee6e82d8fd676a07fa6_grid.svg");
+  background-position: 50% center;
+  background-size: 115vw;
+}
+
+.cs-hero__background video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}
+
+.cs-hero__background canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent;
+}
+
+/* ── Content ── */
+.cs-hero__gutter {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
+.cs-hero__container {
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--cs-space-xl);
+  /* Air under sticky pill before title */
+  padding-top: calc(4rem + var(--cs-space-xl));
+  padding-bottom: var(--cs-space-xl);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Sources row — Clarasight .logo-marquee, but with product names */
+.cs-hero__sources {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: var(--cs-space-s);
+  text-align: center;
+}
+
+.cs-hero__sources-title {
+  width: min(80%, 640px);
+  margin-inline: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(7, 6, 40, 0.55);
+  text-wrap: balance;
+}
+
+.cs-hero__sources-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3.5rem);
+  padding-inline: 0.5rem;
+}
+
+.cs-hero__source {
+  font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgba(7, 6, 40, 0.72);
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .cs-hero__sources-title {
+  color: rgba(247, 247, 254, 0.62);
+  text-shadow: 0 1px 18px rgba(12, 12, 18, 0.85);
+}
+
+[data-theme="dark"] .cs-hero__source {
+  color: rgba(247, 247, 254, 0.82);
+  text-shadow: 0 1px 16px rgba(12, 12, 18, 0.9);
+}
+
+/* Why Orbit — Clarasight .why-clarasight, height 80vh */
+.cs-why {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
+  background: #f7f7fe;
+}
+
+[data-theme="dark"] .cs-why {
+  background: #0c0c12;
+}
+
+.cs-why__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+}
+
+.cs-why__badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  background: rgba(81, 79, 238, 0.08);
+  padding: 0.5rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #514fee;
+}
+
+[data-theme="dark"] .cs-why__badge {
+  background: rgba(129, 140, 248, 0.14);
+  color: #a5b4fc;
+}
+
+.cs-why__statement {
+  max-width: 700px;
+  font-family: var(--font-display, system-ui);
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: #070628;
+}
+
+[data-theme="dark"] .cs-why__statement {
+  color: #f0f0f5;
+}
+
+.cs-hero__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--cs-space-s);
+  max-width: var(--cs-max-width-xs);
+  margin-inline: auto;
+  margin-top: 40px;
+  color: var(--cs-off-white-100);
+}
+
+.cs-hero__header-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-space-xs);
+  max-width: var(--cs-max-width-s);
+  margin-inline: auto;
+}
+
+.cs-hero__title {
+  padding-bottom: 0.3rem;
+  font-family: var(--font-display, system-ui);
+  font-size: clamp(2rem, 5vw, var(--cs-heading-xl-size));
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.85));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.cs-hero__subtitle {
+  max-width: 700px;
+  margin-inline: auto;
+  font-size: var(--cs-body-s-size);
+  line-height: var(--cs-body-s-lh);
+  color: var(--cs-off-white-60);
+}
+
+.cs-hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--cs-space-2xs);
+}
+
+.cs-hero__btn-primary {
+  border-radius: var(--cs-radius-round);
+  background: var(--cs-off-white-100);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cs-purple-100);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    rgba(0, 0, 0, 0.04) 0 0 0 1px,
+    rgba(0, 0, 0, 0.04) 0 2px 2px;
+  transition: background 0.2s;
+}
+
+.cs-hero__btn-primary:hover {
+  background: var(--cs-off-white-70);
+}
+
+.cs-hero__btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--cs-radius-round);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cs-off-white-100);
+  backdrop-filter: blur(16px);
+  transition: background 0.2s;
+}
+
+.cs-hero__btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+@media (max-width: 479px) {
+  .cs-hero__buttons .cs-hero__btn-primary,
+  .cs-hero__buttons .cs-hero__btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

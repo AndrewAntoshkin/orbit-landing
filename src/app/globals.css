@@ -1,0 +1,434 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-regular-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Text";
+  src: url("/orbit-landing/fonts/ys/text-bold-italic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Display";
+  src: url("/orbit-landing/fonts/ys/display-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Display";
+  src: url("/orbit-landing/fonts/ys/display-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "YS Display";
+  src: url("/orbit-landing/fonts/ys/display-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  --destructive: #ef4444;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a3a3a3;
+  --font-ys-text: "YS Text", "YS Text Web", ui-sans-serif, system-ui, sans-serif;
+  --font-ys-display: "YS Display", "YS Text", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-ys-text);
+  --font-display: var(--font-ys-display);
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Orbit surface palette — themed via [data-theme] below.
+     Light greys aligned to Sana product UI:
+     canvas ~white, soft fill ~#f5f5f5, hover pill ~#f3f3f3 on side. */
+  --app-bg: #ffffff;
+  --side-bg: #f9f9f9;
+  --panel-bg: #fbfbfb;
+  --raised: #ffffff;
+  --raised-hover: #fafafa;
+  --raised-soft: rgba(255, 255, 255, 0.8);
+  --side-hover: #f3f3f3;
+  --side-active: #ffffff;
+  --chip: #f5f5f5;
+  --chip-strong: #efefef;
+  --text: #1f1f1f;
+  --text-soft: #4a4a4a;
+  --text-muted: #6b6b6b;
+  --text-faint: #8a8a8a;
+  --icon: #3f3f46;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-soft: rgba(0, 0, 0, 0.06);
+  --hover: rgba(0, 0, 0, 0.035);
+  --accent: #1f1f1f;
+  --accent-fg: #ffffff;
+  --accent-hover: #000000;
+  --underline: #d4d4d4;
+  --underline-strong: #737373;
+  --ok-bg: #ecfdf5;
+  --ok-fg: #065f46;
+  --warn-bg: #fff7ed;
+  --warn-fg: #9a3412;
+  --glow: rgba(0, 0, 0, 0.045);
+  --shadow-raised: 0 1px 8px -2px rgba(0, 0, 0, 0.08);
+  --shadow-pop: 0 12px 40px -12px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #f0f0f0;
+  --card: #141414;
+  --card-foreground: #f0f0f0;
+  --primary: #f0f0f0;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f0f0f0;
+  --muted: #1a1a1a;
+  --muted-foreground: #8a8a8a;
+  --popover: #141414;
+  --popover-foreground: #f0f0f0;
+  --accent: #1a1a1a;
+  --accent-foreground: #f0f0f0;
+  --destructive: #ef4444;
+  --border: #1f1f1f;
+  --input: #1f1f1f;
+  --ring: #333333;
+
+  --app-bg: #0a0a0a;
+  --side-bg: #000000;
+  --panel-bg: #0c0c0c;
+  --raised: #141414;
+  --raised-hover: #1a1a1a;
+  --raised-soft: rgba(255, 255, 255, 0.04);
+  --side-hover: #1a1a1a;
+  --side-active: #1f1f1f;
+  --chip: #1f1f1f;
+  --chip-strong: #2a2a2a;
+  --text: #f0f0f0;
+  --text-soft: #c0c0c0;
+  --text-muted: #9a9a9a;
+  --text-faint: #7a7a7a;
+  --icon: #a8a8a8;
+  /* Soft lines for list/table dividers — surfaces still separate by tone */
+  --line: rgba(255, 255, 255, 0.1);
+  --line-soft: rgba(255, 255, 255, 0.07);
+  --hover: rgba(255, 255, 255, 0.05);
+  --accent: #f0f0f0;
+  --accent-fg: #0a0a0a;
+  --accent-hover: #ffffff;
+  --underline: #3a3a3a;
+  --underline-strong: #6a6a6a;
+  --ok-bg: rgba(16, 185, 129, 0.12);
+  --ok-fg: #6ee7b7;
+  --warn-bg: rgba(249, 115, 22, 0.12);
+  --warn-fg: #fdba74;
+  --glow: rgba(255, 255, 255, 0.03);
+  --shadow-raised: none;
+  --shadow-pop: 0 16px 48px -12px rgba(0, 0, 0, 0.85);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-ys-text);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-ys-display);
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.prose-chat h2 {
+  margin: 1.6rem 0 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.prose-chat h3 {
+  margin: 1.25rem 0 0.45rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.prose-chat > :first-child,
+.prose-chat > div:first-child > :first-child {
+  margin-top: 0;
+}
+
+.prose-chat > :last-child,
+/* Keep scroll, hide the track (macOS “always show” + sources split looks noisy). */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.prose-chat > div:last-child > :last-child {
+  margin-bottom: 0;
+}
+
+.prose-chat p {
+  margin: 0.45rem 0;
+  line-height: 1.7;
+}
+
+.prose-chat strong {
+  font-weight: 600;
+}
+
+/* Sana-style markdown tables: horizontal rules only, no grid chrome. */
+.prose-chat .prose-table-wrap {
+  margin: 0.85rem 0 1.1rem;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.prose-chat .prose-table-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.prose-chat table {
+  width: 100%;
+  min-width: 420px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.prose-chat thead th {
+  padding: 0.55rem 0.75rem 0.55rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.prose-chat tbody td {
+  padding: 0.65rem 0.75rem 0.65rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text);
+  vertical-align: top;
+}
+
+.prose-chat tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-chat th:last-child,
+.prose-chat td:last-child {
+  padding-right: 0;
+}
+
+/* Tailwind preflight drops list markers — restore them explicitly. */
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.6rem 0;
+  padding-left: 1.3rem;
+}
+
+.prose-chat ul {
+  list-style: disc;
+}
+
+.prose-chat ol {
+  list-style: decimal;
+}
+
+.prose-chat ul ul {
+  list-style: circle;
+}
+
+.prose-chat ul ul ul {
+  list-style: square;
+}
+
+.prose-chat li {
+  margin: 0.3rem 0;
+  padding-left: 0.15rem;
+  line-height: 1.6;
+}
+
+.prose-chat li::marker {
+  color: var(--text-faint);
+}
+
+.prose-chat li > ul,
+.prose-chat li > ol {
+  margin: 0.25rem 0 0.35rem;
+}
+
+.prose-chat li > p {
+  margin: 0;
+}
+
+.prose-chat a {
+  color: inherit;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-underline-offset: 2px;
+}
+
+.prose-chat a:hover {
+  text-decoration-color: var(--underline-strong);
+}
+
+.prose-chat a.person-chip,
+.prose-chat a.person-chip:hover {
+  text-decoration: none;
+  overflow-wrap: normal;
+}
+
+[data-theme="dark"] .prose-chat a {
+  text-decoration-color: #333;
+}
+
+[data-theme="dark"] .prose-chat a:hover {
+  text-decoration-color: #666;
+}
+
+[data-theme="dark"] .prose-chat a.person-chip,
+[data-theme="dark"] .prose-chat a.person-chip:hover {
+  text-decoration: none;
+}
+
+.prose-chat blockquote {
+  margin: 0.75rem 0;
+  border-left: 2px solid var(--line);
+  padding-left: 0.85rem;
+  color: var(--text-soft);
+}
+
+.prose-chat code {
+  border-radius: 0.25rem;
+  background: var(--chip);
+  padding: 0.1rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.prose-chat pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--line);
+  background: var(--chip);
+  padding: 0.85rem 1rem;
+  font-size: 0.85rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes spinner-fade {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
