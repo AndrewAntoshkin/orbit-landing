@@ -15,6 +15,7 @@ import {
 import { useTheme } from "@/lib/use-theme";
 import ClarasightHeroBackground from "./ClarasightHeroBackground";
 import ConvergeSection from "./ConvergeSection";
+import GravityGallery from "./GravityGallery";
 import "./clarasight-hero.css";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -712,13 +713,22 @@ export default function LandingView() {
           </motion.div>
         </motion.section>
 
-        <footer className="mx-auto flex max-w-3xl flex-col items-center gap-1 px-6 pb-16 text-center text-[12px] text-pretty text-[var(--text-faint)]">
-          <p>
-            {typo(
-              "Сделано Андреем Антошкиным для конкурса «Pet Projects 2026»",
-            )}
-          </p>
-          <p>{typo("Орбит · рабочий контекст отдела дизайна")}</p>
+        <footer className="relative mt-8 w-full">
+          <div className="relative h-[min(42vw,320px)] min-h-[220px] w-full">
+            <GravityGallery count={18} size={72} />
+            <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-1 px-6 text-center text-[12px] text-pretty text-[var(--text-faint)]">
+              <div className="rounded-2xl bg-[var(--app-bg)]/75 px-4 py-2 backdrop-blur-sm">
+                <p>
+                  {typo(
+                    "Сделано Андреем Антошкиным для конкурса «Pet Projects 2026»",
+                  )}
+                </p>
+                <p className="mt-0.5">
+                  {typo("Орбит · рабочий контекст отдела дизайна")}
+                </p>
+              </div>
+            </div>
+          </div>
         </footer>
       </div>
     </MotionConfig>
