@@ -8,13 +8,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Орбит — задачи, встречи и решения в одном контексте",
+  title: "Halo — задачи, встречи и решения в одном контексте",
   description:
-    "Орбит связывает задачи, встречи, документы и решения отдела дизайна и отвечает по рабочему контексту со ссылками на источники и датами.",
-  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/orbit-logo.svg` },
+    "Halo связывает задачи, встречи, документы и решения отдела дизайна и отвечает по рабочему контексту со ссылками на источники и датами.",
+  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/halo-logo.svg` },
 };
 
-const THEME_BOOT = `(function(){try{var p=localStorage.getItem('orbit.theme')||'system';var d=p==='dark'||(p==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
+const THEME_BOOT = `(function(){try{var p=localStorage.getItem('halo.theme')||'system';var d=p==='dark'||(p==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
 
 export default function RootLayout({
   children,

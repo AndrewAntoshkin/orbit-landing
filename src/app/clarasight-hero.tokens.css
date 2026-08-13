@@ -68,6 +68,8 @@
   --cs-dot-opacity: 0.92;
   --cs-dot-content-offset-y: 0.35;
   --cs-dot-content-scale: 1.2;
+  --cs-dot-threshold-scale: 1;
+  --cs-dot-size-scale: 1;
 }
 
 @supports (background: linear-gradient(in oklab, red, blue)) {
@@ -97,35 +99,56 @@
  * Use :root[data-theme="dark"] so dark always beats plain :root.
  */
 :root[data-theme="dark"] {
+  /*
+   * Mirror light settle: bloom mid, then a long soft fade into page bg.
+   * Light ends on #f7f7fe; dark ends on --app-bg (#0a0a0a).
+   */
   --cs-hero-gradient: linear-gradient(
     180deg,
-    #05040f 0%,
+    #04030c 0%,
     #070628 6%,
-    #0c0b42 14%,
-    #15128a 28%,
-    #2a27c4 42%,
-    #3f3cdb 52%,
-    #2a2680 68%,
-    #14122e 84%,
-    #0c0c12 100%
+    #0b0a3a 14%,
+    #14117a 24%,
+    #2522c4 34%,
+    #4a47ea 42%,
+    #6f6df5 48%,
+    #5552d4 56%,
+    #3a38a8 64%,
+    #24227a 72%,
+    #16144a 80%,
+    #100e28 88%,
+    #0c0b14 94%,
+    #0a0a0a 100%
   );
-  --cs-dot-color: #a8a6e8;
-  --cs-dot-opacity: 0.55;
+  /*
+   * Same as light: dots = page background color, no special blend.
+   * Light → white on brightening gradient.
+   * Dark → #0a0a0a on the mid bloom (normal compositing).
+   */
+  --cs-dot-color: #0a0a0a;
+  --cs-dot-opacity: 1;
+  --cs-dot-threshold-scale: 0.55;
+  --cs-dot-size-scale: 1.45;
 }
 
 @supports (background: linear-gradient(in oklab, red, blue)) {
   :root[data-theme="dark"] {
     --cs-hero-gradient: linear-gradient(
       in oklab 180deg,
-      color(display-p3 0.02 0.016 0.06) 0%,
+      color(display-p3 0.016 0.012 0.047) 0%,
       color(display-p3 0.027 0.024 0.157) 6%,
-      color(display-p3 0.05 0.045 0.26) 14%,
-      color(display-p3 0.09 0.08 0.54) 28%,
-      color(display-p3 0.16 0.15 0.77) 42%,
-      color(display-p3 0.25 0.24 0.86) 52%,
-      color(display-p3 0.16 0.15 0.5) 68%,
-      color(display-p3 0.08 0.07 0.18) 84%,
-      color(display-p3 0.047 0.047 0.07) 100%
+      color(display-p3 0.043 0.039 0.227) 14%,
+      color(display-p3 0.078 0.067 0.478) 24%,
+      color(display-p3 0.145 0.133 0.77) 34%,
+      color(display-p3 0.29 0.278 0.918) 42%,
+      color(display-p3 0.435 0.427 0.961) 48%,
+      color(display-p3 0.333 0.322 0.831) 56%,
+      color(display-p3 0.227 0.22 0.659) 64%,
+      color(display-p3 0.141 0.133 0.478) 72%,
+      color(display-p3 0.086 0.078 0.29) 80%,
+      color(display-p3 0.063 0.055 0.157) 88%,
+      color(display-p3 0.047 0.043 0.078) 94%,
+      color(display-p3 0.039 0.039 0.039) 100%
     );
   }
 }

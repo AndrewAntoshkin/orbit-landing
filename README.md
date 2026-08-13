@@ -1,6 +1,6 @@
-# Orbit landing
+# Halo landing
 
-Static marketing page for **Орбит** (Pet Projects 2026).
+Static marketing page for **Halo** (Pet Projects 2026).
 
 Live: https://AndrewAntoshkin.github.io/orbit-landing/
 
@@ -10,4 +10,4 @@ npm run dev   # http://localhost:3010/orbit-landing/
 npm run build # writes ./out
 ```
 
-Full Orbit app stays local (graph + MCP); this repo is landing only.
+Full Halo app stays local (graph + MCP); this repo is landing only.

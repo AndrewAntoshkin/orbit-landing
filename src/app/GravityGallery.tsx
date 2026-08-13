@@ -3,21 +3,22 @@
 import { useEffect, useRef } from "react";
 import Matter from "matter-js";
 
-/** Orbit vocabulary for gravity pills. */
+/** Halo vocabulary for gravity pills. */
 const LABELS = [
   "Tracker",
   "Wiki",
   "Встречи",
   "Задачи",
   "Решения",
-  "orbit.ask",
-  "orbit.search",
-  "orbit.neighborhood",
+  "halo.ask",
+  "halo.search",
+  "halo.neighborhood",
   "HRDS",
   "HRTECHDESIGN",
   "Staff",
   "Calendar",
   "Память",
+  "Сценарии",
   "Explore",
   "Источники",
   "Спросить",

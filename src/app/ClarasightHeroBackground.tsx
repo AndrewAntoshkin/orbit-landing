@@ -144,6 +144,14 @@ export default function ClarasightHeroBackground({
         };
       };
 
+      const readCssNumber = (name: string, fallback: number) => {
+        const raw = getComputedStyle(document.documentElement)
+          .getPropertyValue(name)
+          .trim();
+        const n = Number.parseFloat(raw);
+        return Number.isFinite(n) ? n : fallback;
+      };
+
       const getDerivedConfig = () => {
         const { width } = getWrapSize();
         const t = clamp(CONFIG.density, 0, 100) / 100;
@@ -159,11 +167,20 @@ export default function ClarasightHeroBackground({
           CONFIG.mobileDotScaleMax,
           Math.pow(widthRatio, 1.15),
         );
+        const sizeScale = readCssNumber("--cs-dot-size-scale", 1);
+        const thresholdScale = readCssNumber("--cs-dot-threshold-scale", 1);
         return {
           cols: Math.max(28, Math.round(baseCols * widthScale)),
-          minSize: lerp(CONFIG.minDotMinSize, CONFIG.maxDotMinSize, t) * dotScale,
-          maxSize: lerp(CONFIG.minDotMaxSize, CONFIG.maxDotMaxSize, t) * dotScale,
-          threshold: lerp(CONFIG.minThreshold, CONFIG.maxThreshold, t),
+          minSize:
+            lerp(CONFIG.minDotMinSize, CONFIG.maxDotMinSize, t) *
+            dotScale *
+            sizeScale,
+          maxSize:
+            lerp(CONFIG.minDotMaxSize, CONFIG.maxDotMaxSize, t) *
+            dotScale *
+            sizeScale,
+          threshold:
+            lerp(CONFIG.minThreshold, CONFIG.maxThreshold, t) * thresholdScale,
           feather: lerp(CONFIG.minFeather, CONFIG.maxFeather, t),
         };
       };
@@ -487,6 +504,7 @@ export default function ClarasightHeroBackground({
         if (!material) return;
         material.uniforms.uColor.value.set(readDotColor());
         material.uniforms.uOpacity.value = readDotOpacity();
+        updateDerivedUniforms();
       };
       const themeObserver = new MutationObserver(syncThemeDots);
       themeObserver.observe(document.documentElement, {

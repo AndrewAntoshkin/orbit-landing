@@ -11,6 +11,7 @@ import {
   Sun,
   Ticket,
   Video,
+  Zap,
 } from "lucide-react";
 import { useTheme } from "@/lib/use-theme";
 import ClarasightHeroBackground from "./ClarasightHeroBackground";
@@ -18,30 +19,34 @@ import ConvergeSection from "./ConvergeSection";
 import GravityGallery from "./GravityGallery";
 import "./clarasight-hero.css";
 
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
+/** Inline SVG (not <img>) so the mark inherits the current text colour. */
 function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={`${BASE}/orbit-logo.svg`}
-      alt=""
+    <svg
+      viewBox="0 0 32.048 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className={`shrink-0 rounded-[28%] object-cover ${className}`}
-      width={36}
-      height={36}
-    />
+      focusable="false"
+      className={`shrink-0 ${className}`}
+    >
+      <path
+        d="M13.1433 0.0299511C9.14406 0.192816 6.88204 0.76586 4.84924 2.1291C2.61136 3.62505 1.20589 5.82071 0.596655 8.77038C0.150284 10.9057 0.0537716 12.0036 0.0115473 15.5021C-0.030677 19.0309 0.0356755 20.3579 0.331245 22.0952C0.75952 24.6467 1.1516 25.7506 2.15292 27.2646C2.60532 27.9462 3.69109 29.0742 4.36668 29.5749C5.96517 30.7511 8.1548 31.5353 10.5495 31.7886C13.0769 32.0601 18.5299 32.0722 21.2866 31.8128C23.4822 31.6077 25.6839 30.9019 27.2281 29.9006C29.3936 28.5012 30.8353 26.2995 31.4807 23.4041C31.9029 21.51 32.0477 19.6703 32.0477 16.1657C32.0477 12.088 31.7582 9.18659 31.167 7.32872C30.3527 4.77717 28.4767 2.6177 26.0398 1.42938C24.6162 0.735701 22.4447 0.259169 19.9897 0.090271C18.6928 0.00582314 14.6031 -0.0303688 13.1433 0.0299511ZM13.7827 2.17133C16.6117 2.59357 19.8268 4.59018 23.4581 8.18527C28.9412 13.6081 30.8896 17.9692 29.5384 21.7936C28.9352 23.5006 27.8615 24.9664 25.7503 26.951C23.5486 29.0199 21.745 29.8886 19.6338 29.8886C18.729 29.8886 18.0293 29.7679 17.0943 29.4603C14.404 28.5675 10.9899 26.022 7.57573 22.3606C4.43303 18.9947 2.78629 16.3768 2.24943 13.8976C2.11673 13.2703 2.07451 12.0458 2.16499 11.4245C2.4304 9.56661 3.51616 7.78716 5.69373 5.61562C7.74462 3.57076 9.52408 2.49706 11.3337 2.20149C11.581 2.16529 11.8283 2.12307 11.8766 2.11101C12.154 2.05672 13.2398 2.09291 13.7827 2.17133Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }
 
 const NAV_ITEMS = [
   { href: "#ask", label: "Спросить" },
+  { href: "#workflows", label: "Сценарии" },
   { href: "#sources", label: "Источники" },
   { href: "#explore", label: "Исследовать" },
   { href: "#memory", label: "Память" },
 ];
 
-/** Источники, на которых работает Орбит — строка внизу героя как у Clarasight. */
+/** Источники, на которых работает Halo — строка внизу героя как у Clarasight. */
 const HERO_SOURCES = [
   "Tracker",
   "Wiki",
@@ -142,7 +147,7 @@ function TopNav() {
         className="flex items-center gap-1.5 rounded-full px-2 py-1 text-[13px] font-medium text-[var(--text)]"
       >
         <LogoMark className="h-6 w-6" />
-        Орбит
+        Halo
       </Link>
       <nav className="hidden items-center gap-0.5 sm:flex">
         {NAV_ITEMS.map((item) => (
@@ -405,6 +410,58 @@ function ExploreMockup() {
   );
 }
 
+function WorkflowsMockup() {
+  const cards = [
+    {
+      title: "Недельный апдейт для руководителя",
+      desc: "Сделал · в работе · риски · план",
+    },
+    {
+      title: "Подготовка к 1:1",
+      desc: "Прогресс, вопросы и решения со встреч",
+    },
+    {
+      title: "После отпуска",
+      desc: "Что изменилось и с чего начать сегодня",
+    },
+  ];
+  return (
+    <ProductShell
+      chrome={
+        <div className="flex items-center gap-2 border-b border-[var(--line-soft)] px-4 py-2.5">
+          <Zap className="h-4 w-4 text-[var(--text-soft)]" />
+          <span className="text-[12px] text-[var(--text-muted)]">
+            Все сценарии
+          </span>
+        </div>
+      }
+    >
+      <div className="space-y-2">
+        {cards.map((c) => (
+          <div
+            key={c.title}
+            className="rounded-xl border border-[var(--line-soft)] bg-[var(--chip)]/40 px-3 py-2.5"
+          >
+            <div className="flex items-start gap-2.5">
+              <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--chip)] text-[var(--text-soft)]">
+                <Zap className="h-3.5 w-3.5" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[13px] font-medium leading-snug text-[var(--text)]">
+                  {typo(c.title)}
+                </span>
+                <span className="mt-0.5 block text-[11.5px] text-[var(--text-muted)]">
+                  {typo(c.desc)}
+                </span>
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </ProductShell>
+  );
+}
+
 function MemoryMockup() {
   return (
     <ProductShell>
@@ -417,7 +474,7 @@ function MemoryMockup() {
         </div>
         <p className="mt-1 text-[12.5px] leading-relaxed text-pretty text-[var(--text-muted)]">
           {typo(
-            "Орбит сохраняет только явно зафиксированные решения и не придумывает новые действия.",
+            "Halo сохраняет только явно зафиксированные решения и не придумывает новые действия.",
           )}
         </p>
       </div>
@@ -544,7 +601,7 @@ export default function LandingView() {
                 >
                   <div className="cs-hero__header-container">
                     <motion.h1 custom={0} variants={blurIn} className="cs-hero__title">
-                      {typo("Орбит связывает задачи, встречи и решения")}
+                      {typo("Halo связывает задачи, встречи и решения")}
                     </motion.h1>
                     <motion.p custom={1} variants={fadeUp} className="cs-hero__subtitle">
                       {typo(
@@ -609,15 +666,15 @@ export default function LandingView() {
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           className="cs-why"
-          aria-label="Зачем нужен Орбит"
+          aria-label="Зачем нужен Halo"
         >
           <div className="cs-why__inner">
             <motion.div custom={0} variants={fadeUp} className="cs-why__badge">
-              Зачем нужен Орбит
+              Зачем нужен Halo
             </motion.div>
             <motion.h2 custom={1} variants={blurIn} className="cs-why__statement">
               {typo(
-                "Рабочий контекст хранится в разных системах и быстро теряется. Орбит объединяет его, сохраняет историю изменений и помогает найти ответ со ссылками на источники.",
+                "Рабочий контекст хранится в разных системах и быстро теряется. Halo объединяет его, сохраняет историю изменений и помогает найти ответ со ссылками на источники.",
               )}
             </motion.h2>
           </div>
@@ -629,38 +686,47 @@ export default function LandingView() {
           id="ask"
           index={0}
           kicker="Спросить"
-          title="Задайте вопрос — Орбит соберёт ответ по источникам"
-          body="Узнайте, что произошло за время отпуска, подготовьте недельный отчёт или разберитесь в целях проекта. Орбит отличает текущее состояние от подтверждённых изменений."
+          title="Задайте вопрос — Halo соберёт ответ по источникам"
+          body="Узнайте, что произошло за время отпуска, подготовьте недельный апдейт руководителю или разберитесь в целях проекта. Halo отличает текущее состояние от подтверждённых изменений."
           mockup={<AskMockup />}
         />
 
         <Section
-          id="sources"
+          id="workflows"
           index={1}
+          kicker="Сценарии"
+          title="Готовые рецепты поверх рабочей памяти"
+          body="Недельный апдейт, 1:1, после отпуска, блокеры. Заполни поля в модалке и запусти — Halo соберёт ответ из задач, встреч и решений."
+          mockup={<WorkflowsMockup />}
+          reverse
+        />
+
+        <Section
+          id="sources"
+          index={2}
           kicker="Источники"
           title="Ответ можно проверить по источникам"
-          body="Рядом с ответом Орбит показывает ссылки на Tracker, Wiki и встречи, даты и оценку достоверности. Если данных недостаточно, он прямо об этом скажет."
+          body="Рядом с ответом Halo показывает ссылки на Tracker, Wiki и встречи, даты и оценку достоверности. Если данных недостаточно, он прямо об этом скажет."
           mockup={<SourcesMockup />}
-          reverse
         />
 
         <Section
           id="explore"
-          index={2}
+          index={3}
           kicker="Исследовать"
           title="Из ответа — к задаче, человеку или решению"
           body="Посмотрите историю изменений, связанные документы, участников и соседние задачи."
           mockup={<ExploreMockup />}
+          reverse
         />
 
         <Section
           id="memory"
-          index={3}
+          index={4}
           kicker="Память"
           title="Сохраняет подтверждённые решения и изменения"
-          body="Орбит сохраняет явно зафиксированные решения, смены статусов и ответственных. AI формулирует ответ на основе найденных источников."
+          body="Halo сохраняет явно зафиксированные решения, смены статусов и ответственных. AI формулирует ответ на основе найденных источников."
           mockup={<MemoryMockup />}
-          reverse
         />
 
         <motion.section
@@ -686,7 +752,7 @@ export default function LandingView() {
               variants={blurIn}
               className="mt-3 font-display text-2xl font-medium tracking-tight text-balance text-[var(--text)] sm:text-[1.85rem]"
             >
-              {typo("Орбит работает с контекстом HRTECHDESIGN и HRDS")}
+              {typo("Halo работает с контекстом HRTECHDESIGN и HRDS")}
             </motion.h3>
             <motion.p
               custom={2}
@@ -698,15 +764,15 @@ export default function LandingView() {
               )}
               {"\u00a0"}
               <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
-                orbit.ask
+                halo.ask
               </code>
               ,{" "}
               <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
-                orbit.neighborhood
+                halo.neighborhood
               </code>{" "}
               и{"\u00a0"}
               <code className="rounded-md bg-[var(--chip)]/90 px-1.5 py-0.5 text-[13px] text-[var(--text-soft)] backdrop-blur-sm">
-                orbit.search
+                halo.search
               </code>
               .
             </motion.p>
@@ -725,7 +791,7 @@ export default function LandingView() {
                   "Сделано Андреем Антошкиным для конкурса «Pet Projects 2026»",
                 )}
               </p>
-              <p>{typo("Орбит · рабочий контекст отдела дизайна")}</p>
+              <p>{typo("Halo · рабочий контекст отдела дизайна")}</p>
             </div>
           </div>
         </motion.section>

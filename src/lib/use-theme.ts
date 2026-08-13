@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export type ThemePreference = "system" | "light" | "dark";
 
-const STORAGE_KEY = "orbit.theme";
+const STORAGE_KEY = "halo.theme";
 
 function resolve(pref: ThemePreference): "light" | "dark" {
   if (pref !== "system") return pref;

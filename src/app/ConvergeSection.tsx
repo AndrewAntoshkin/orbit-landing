@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -45,16 +45,35 @@ const PILL_CLASS =
   "block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border-[2.5px] bg-transparent px-3.5 py-1.5 text-[13px] font-medium text-[#111111] [[data-theme=dark]_&]:text-white sm:px-4 sm:py-2 sm:text-[15px]";
 
 function LogoMark({ className = "h-16 w-16" }: { className?: string }) {
+  const clipId = `halo-app-clip-${useId().replace(/:/g, "")}`;
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/orbit-logo.svg`}
-      alt=""
+    <svg
+      viewBox="0 0 120.11 120.006"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
       aria-hidden
-      className={`shrink-0 rounded-[28%] object-cover ${className}`}
-      width={72}
-      height={72}
-    />
+      className={`shrink-0 text-[#111111] [[data-theme=dark]_&]:text-white ${className}`}
+    >
+      <defs>
+        <clipPath id={clipId}>
+          <rect width="120.11" height="120.006" rx="43" />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${clipId})`}>
+        <rect
+          x="1.03125"
+          y="3"
+          width="119"
+          height="115"
+          rx="57.5"
+          className="fill-white [[data-theme=dark]_&]:fill-black"
+        />
+        <path
+          d="M49.2592 0.149734C34.2706 0.760132 25.7929 2.90781 18.1743 8.01704C9.78698 13.6236 4.5195 21.8527 2.23618 32.9076C0.563243 40.9105 0.201528 45.025 0.0432776 58.1372C-0.114973 71.3624 0.133706 76.336 1.24146 82.8469C2.84657 92.4097 4.31604 96.5468 8.06883 102.221C9.76437 104.776 13.8337 109.003 16.3657 110.88C22.3566 115.288 30.563 118.227 39.5381 119.177C49.0105 120.194 69.4474 120.239 79.7789 119.267C88.0079 118.498 96.2595 115.853 102.047 112.101C110.163 106.856 115.566 98.6041 117.985 87.7526C119.568 80.654 120.11 73.7588 120.11 60.624C120.11 45.3415 119.025 34.4675 116.809 27.5044C113.757 17.9416 106.727 9.84822 97.5933 5.39461C92.258 2.79478 84.1195 1.0088 74.9183 0.375809C70.0578 0.0593033 54.7301 -0.0763397 49.2592 0.149734ZM51.6555 8.17529C62.2583 9.7578 74.3079 17.2408 87.9175 30.7147C108.467 51.0385 115.77 67.3835 110.706 81.7165C108.445 88.1143 104.421 93.6079 96.5082 101.046C88.2566 108.8 81.497 112.055 73.5845 112.055C70.1934 112.055 67.571 111.603 64.0669 110.45C53.9841 107.104 41.1884 97.5642 28.3927 83.8416C16.6144 71.2268 10.4426 61.4152 8.43055 52.1237C7.93319 49.7725 7.77494 45.1833 8.11405 42.8547C9.10876 35.8917 13.1781 29.2226 21.3393 21.084C29.0257 13.4202 35.6948 9.39608 42.477 8.28833C43.4039 8.15269 44.3308 7.99444 44.5116 7.94922C45.5516 7.74576 49.6209 7.88139 51.6555 8.17529Z"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
   );
 }
 
@@ -168,7 +187,7 @@ export default function ConvergeSection() {
     <section
       ref={sectionRef}
       className="relative h-[200svh] bg-[var(--app-bg)]"
-      aria-label="Сходимость данных в Орбит"
+      aria-label="Сходимость данных в Halo"
     >
       <div className="sticky top-[12svh] mx-auto flex h-[76svh] w-full max-w-[720px] items-center justify-center px-4">
         <motion.div
@@ -178,7 +197,7 @@ export default function ConvergeSection() {
           <motion.div
             aria-hidden
             style={{ opacity: logoGlow }}
-            className="pointer-events-none absolute h-48 w-48 rounded-full bg-[radial-gradient(closest-side,rgba(81,79,238,0.28),transparent)] blur-2xl sm:h-64 sm:w-64"
+            className="pointer-events-none absolute h-48 w-48 rounded-full bg-[radial-gradient(closest-side,rgba(17,17,17,0.16),transparent)] blur-2xl sm:h-64 sm:w-64 [[data-theme=dark]_&]:bg-[radial-gradient(closest-side,rgba(255,255,255,0.22),transparent)]"
           />
 
           {WORDS.map((w) => (
@@ -192,7 +211,7 @@ export default function ConvergeSection() {
           ))}
 
           <motion.div style={{ scale: logoScale }} className="relative z-10">
-            <LogoMark className="h-[72px] w-[72px] shadow-[0_12px_40px_-12px_rgba(81,79,238,0.45)] sm:h-20 sm:w-20" />
+            <LogoMark className="h-[72px] w-[72px] drop-shadow-[0_12px_28px_rgba(17,17,17,0.22)] sm:h-20 sm:w-20" />
           </motion.div>
         </motion.div>
 
