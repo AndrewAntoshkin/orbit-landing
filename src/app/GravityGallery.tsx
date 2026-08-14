@@ -32,18 +32,18 @@ const LABELS = [
 const PILL_STYLES: { bg: string; fg: string; border: string }[] = [
   { bg: "#FF7A3D", fg: "#111111", border: "#FF7A3D" },
   { bg: "#F5E642", fg: "#111111", border: "#F5E642" },
-  { bg: "#7CDB6A", fg: "#111111", border: "#7CDB6A" },
+  { bg: "#F6F02A", fg: "#111111", border: "#F6F02A" },
   { bg: "#9B7BFF", fg: "#111111", border: "#9B7BFF" },
   { bg: "#7EC8FF", fg: "#111111", border: "#7EC8FF" },
   { bg: "#FF8FB8", fg: "#111111", border: "#FF8FB8" },
   { bg: "#3B82F6", fg: "#FFFFFF", border: "#3B82F6" },
-  { bg: "#22C55E", fg: "#111111", border: "#22C55E" },
+  { bg: "#E8DE1C", fg: "#111111", border: "#E8DE1C" },
   { bg: "transparent", fg: "#C4B5FD", border: "#A78BFA" },
   { bg: "transparent", fg: "#FB923C", border: "#FB923C" },
-  { bg: "transparent", fg: "#4ADE80", border: "#22C55E" },
+  { bg: "transparent", fg: "#F6F02A", border: "#F6F02A" },
   { bg: "transparent", fg: "#60A5FA", border: "#3B82F6" },
   { bg: "#F472B6", fg: "#111111", border: "#F472B6" },
-  { bg: "#A3E635", fg: "#111111", border: "#A3E635" },
+  { bg: "#FFF275", fg: "#111111", border: "#FFF275" },
   { bg: "#38BDF8", fg: "#111111", border: "#38BDF8" },
   { bg: "transparent", fg: "#FBBF24", border: "#FBBF24" },
   { bg: "#E879F9", fg: "#111111", border: "#E879F9" },
@@ -61,6 +61,8 @@ const ICONS: { kind: IconKind; color: string; outline: boolean }[] = [
   { kind: "arrow-right", color: "#3B82F6", outline: false },
   { kind: "plus", color: "#FF7A3D", outline: true },
   { kind: "spark", color: "#F5E642", outline: false },
+  { kind: "dot", color: "#F6F02A", outline: true },
+  { kind: "arrow-diag", color: "#FF8FB8", outline: false },
 ];
 
 type Props = {
@@ -70,6 +72,14 @@ type Props = {
   className?: string;
   /** Wait until the playfield is in view, then drop from the top. */
   startWhenVisible?: boolean;
+  /** How far below the fold the playfield may still be when the drop starts. */
+  startRootMarginBottom?: string;
+  labels?: readonly string[];
+  palette?: "spectrum" | "coral";
+  showIcons?: boolean;
+  responsiveSize?: boolean;
+  staggerMs?: number;
+  startDelayMs?: number;
 };
 
 type Item = { el: HTMLDivElement; body: Matter.Body; w: number; h: number };
@@ -104,6 +114,13 @@ export default function GravityGallery({
   size = 80,
   className = "",
   startWhenVisible = true,
+  startRootMarginBottom = "25%",
+  labels: customLabels,
+  palette = "spectrum",
+  showIcons = true,
+  responsiveSize = false,
+  staggerMs = 45,
+  startDelayMs = 0,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -115,9 +132,10 @@ export default function GravityGallery({
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
+    const sourceLabels = customLabels?.length ? customLabels : LABELS;
     const labels = Array.from(
       { length: count },
-      (_, i) => LABELS[i % LABELS.length]!,
+      (_, i) => sourceLabels[i % sourceLabels.length]!,
     );
 
     const applyStyle = (
@@ -128,28 +146,43 @@ export default function GravityGallery({
       el.style.backgroundColor = outlined ? "transparent" : style.bg;
       el.style.color = style.fg;
       el.style.borderColor = style.border;
-      el.style.borderWidth = outlined ? "2.5px" : "0";
+      el.style.borderWidth = outlined || palette === "coral" ? "2.5px" : "0";
       el.style.borderStyle = "solid";
       el.style.boxShadow = "none";
     };
 
-    const makePillEl = (label: string, index: number) => {
+    const resolveSize = () =>
+      responsiveSize
+        ? Math.round(
+            Math.max(
+              size,
+              Math.min(size * 1.45, container.clientWidth * 0.07),
+            ),
+          )
+        : size;
+
+    const makePillEl = (label: string, index: number, itemSize: number) => {
       const el = document.createElement("div");
       el.textContent = label;
       el.className =
         "absolute left-0 top-0 inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium will-change-transform select-none";
-      el.style.height = `${size}px`;
+      el.style.height = `${itemSize}px`;
       el.style.width = "max-content";
-      el.style.paddingLeft = `${Math.round(size * 0.42)}px`;
-      el.style.paddingRight = `${Math.round(size * 0.42)}px`;
-      const fontPx = Math.round(size * 0.38);
+      el.style.paddingLeft = `${Math.round(itemSize * 0.42)}px`;
+      el.style.paddingRight = `${Math.round(itemSize * 0.42)}px`;
+      const fontPx = Math.round(itemSize * 0.38);
       el.style.fontFamily = "var(--font-display)";
       el.style.fontSize = `${fontPx}px`;
       el.style.fontWeight = "500";
       el.style.lineHeight = "1";
       el.style.letterSpacing = "-0.02em";
       el.style.pointerEvents = "none";
-      applyStyle(el, PILL_STYLES[index % PILL_STYLES.length]!);
+      applyStyle(
+        el,
+        palette === "coral"
+          ? { bg: "#ff5c49", fg: "#ffffff", border: "#101010" }
+          : PILL_STYLES[index % PILL_STYLES.length]!,
+      );
       return el;
     };
 
@@ -188,8 +221,9 @@ export default function GravityGallery({
     };
 
     if (reduceMotion) {
+      const itemSize = resolveSize();
       for (let i = 0; i < labels.length; i++) {
-        const el = makePillEl(labels[i]!, i);
+        const el = makePillEl(labels[i]!, i, itemSize);
         container.appendChild(el);
         const side = i % 2 === 0 ? "left" : "right";
         const stack = Math.floor(i / 2);
@@ -197,8 +231,8 @@ export default function GravityGallery({
         el.style.bottom = `${16 + Math.floor(stack / 3) * 36 + (stack % 2) * 12}px`;
         el.style.transform = `rotate(${(i % 5) * 6 - 12}deg)`;
       }
-      ICONS.forEach((icon, i) => {
-        const d = size;
+      if (showIcons) ICONS.forEach((icon, i) => {
+        const d = itemSize;
         const el = makeIconEl(icon, d);
         container.appendChild(el);
         el.style.left = `${40 + i * 56}px`;
@@ -216,6 +250,7 @@ export default function GravityGallery({
     let raf = 0;
     let items: Item[] = [];
     let resizeTimer = 0;
+    let startTimer = 0;
     let lastW = 0;
     let lastH = 0;
     let dragBody: Matter.Body | null = null;
@@ -294,6 +329,7 @@ export default function GravityGallery({
       const w = container.clientWidth;
       const h = container.clientHeight;
       if (w < 40 || h < 40) return;
+      const itemSize = resolveSize();
 
       clearScene();
       if (disposed) return;
@@ -342,7 +378,7 @@ export default function GravityGallery({
       );
 
       items = labels.map((label, i) => {
-        const el = makePillEl(label, i);
+        const el = makePillEl(label, i, itemSize);
         const pw = Math.ceil(
           (() => {
             container.appendChild(el);
@@ -352,17 +388,17 @@ export default function GravityGallery({
           })(),
         );
         el.style.width = `${pw}px`;
-        return spawnBody(el, pw, size, i, false);
+        return spawnBody(el, pw, itemSize, i, false);
       });
 
-      ICONS.forEach((icon, i) => {
-        const d = size;
+      if (showIcons) ICONS.forEach((icon, i) => {
+        const d = itemSize;
         const el = makeIconEl(icon, d);
         items.push(spawnBody(el, d, d, labels.length + i, true));
       });
 
       items.forEach((item, i) => {
-        const delay = 60 + i * 45;
+        const delay = 60 + i * staggerMs;
         const id = window.setTimeout(() => {
           if (disposed || !engine) return;
           Matter.Body.setStatic(item.body, false);
@@ -396,7 +432,16 @@ export default function GravityGallery({
     };
 
     const start = () => {
-      if (started || disposed) return;
+      if (started || disposed || startTimer) return;
+      if (startDelayMs > 0) {
+        startTimer = window.setTimeout(() => {
+          startTimer = 0;
+          if (disposed) return;
+          started = true;
+          build();
+        }, startDelayMs);
+        return;
+      }
       started = true;
       build();
     };
@@ -462,18 +507,16 @@ export default function GravityGallery({
 
     let io: IntersectionObserver | null = null;
     if (startWhenVisible) {
+      // Start while the playfield is still below the fold: the pills need a
+      // full container height to fall, so they are settled on arrival.
       io = new IntersectionObserver(
         (entries) => {
-          if (
-            entries.some(
-              (entry) => entry.isIntersecting && entry.intersectionRatio > 0.15,
-            )
-          ) {
+          if (entries.some((entry) => entry.isIntersecting)) {
             start();
             io?.disconnect();
           }
         },
-        { threshold: [0.15, 0.35] },
+        { threshold: 0, rootMargin: `0px 0px ${startRootMarginBottom} 0px` },
       );
       io.observe(container);
     } else {
@@ -495,6 +538,7 @@ export default function GravityGallery({
 
     return () => {
       disposed = true;
+      window.clearTimeout(startTimer);
       window.clearTimeout(resizeTimer);
       io?.disconnect();
       resizeObserver.disconnect();
@@ -504,7 +548,18 @@ export default function GravityGallery({
       container.removeEventListener("pointercancel", onPointerUp);
       clearScene();
     };
-  }, [count, size, startWhenVisible]);
+  }, [
+    count,
+    customLabels,
+    palette,
+    responsiveSize,
+    showIcons,
+    size,
+    staggerMs,
+    startDelayMs,
+    startWhenVisible,
+    startRootMarginBottom,
+  ]);
 
   return (
     <div
