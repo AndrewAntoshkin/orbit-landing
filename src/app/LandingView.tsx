@@ -231,7 +231,7 @@ export default function LandingView() {
           >
             <TypewriterBadge />
           </motion.div>
-          <HeroSplitTitle text="Меньше поисков. Больше контекста." />
+          <HeroSplitTitle text={"Меньше\u00a0поисков. Больше\u00a0контекста."} />
           <motion.p
             className="hl-hero__sub"
             initial={{ opacity: 0, y: 12 }}

@@ -133,10 +133,16 @@ export default function GravityGallery({
     ).matches;
 
     const sourceLabels = customLabels?.length ? customLabels : LABELS;
-    const labels = Array.from(
+    const allLabels = Array.from(
       { length: count },
       (_, i) => sourceLabels[i % sourceLabels.length]!,
     );
+    const isNarrow = () =>
+      (container.clientWidth || window.innerWidth) < 640;
+    const activeLabels = () =>
+      isNarrow() ? allLabels.slice(0, 7) : allLabels;
+    const activeIcons = () =>
+      showIcons ? (isNarrow() ? ICONS.slice(0, 2) : ICONS) : [];
 
     const applyStyle = (
       el: HTMLDivElement,
@@ -222,6 +228,7 @@ export default function GravityGallery({
 
     if (reduceMotion) {
       const itemSize = resolveSize();
+      const labels = activeLabels();
       for (let i = 0; i < labels.length; i++) {
         const el = makePillEl(labels[i]!, i, itemSize);
         container.appendChild(el);
@@ -231,7 +238,7 @@ export default function GravityGallery({
         el.style.bottom = `${16 + Math.floor(stack / 3) * 36 + (stack % 2) * 12}px`;
         el.style.transform = `rotate(${(i % 5) * 6 - 12}deg)`;
       }
-      if (showIcons) ICONS.forEach((icon, i) => {
+      activeIcons().forEach((icon, i) => {
         const d = itemSize;
         const el = makeIconEl(icon, d);
         container.appendChild(el);
@@ -377,6 +384,7 @@ export default function GravityGallery({
         wallOpts,
       );
 
+      const labels = activeLabels();
       items = labels.map((label, i) => {
         const el = makePillEl(label, i, itemSize);
         const pw = Math.ceil(
@@ -391,7 +399,7 @@ export default function GravityGallery({
         return spawnBody(el, pw, itemSize, i, false);
       });
 
-      if (showIcons) ICONS.forEach((icon, i) => {
+      activeIcons().forEach((icon, i) => {
         const d = itemSize;
         const el = makeIconEl(icon, d);
         items.push(spawnBody(el, d, d, labels.length + i, true));

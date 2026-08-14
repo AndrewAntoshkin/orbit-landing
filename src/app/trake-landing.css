@@ -93,8 +93,7 @@
 }
 
 .hl-hero__badge {
-  display: inline-grid;
-  grid-template-areas: "badge";
+  display: inline-flex;
   align-items: center;
   min-height: 1.5rem;
   margin: 0 0 1.5rem;
@@ -109,17 +108,7 @@
   white-space: nowrap;
 }
 
-.hl-hero__badge-sizer,
 .hl-hero__badge-text {
-  grid-area: badge;
-}
-
-.hl-hero__badge-sizer {
-  visibility: hidden;
-}
-
-.hl-hero__badge-text {
-  justify-self: start;
   white-space: pre;
 }
 
@@ -134,10 +123,10 @@
 }
 
 .hl-hero__title {
-  max-width: 12ch;
+  max-width: 22ch;
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 8.5vw, 7.5rem);
+  font-size: clamp(2rem, 6.6vw, 6rem);
   font-weight: 500;
   line-height: 0.92;
   letter-spacing: -0.04em;

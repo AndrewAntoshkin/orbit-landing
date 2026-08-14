@@ -10,12 +10,9 @@ const PHRASES = [
   "Рабочая память команды",
 ];
 
-const LONGEST = PHRASES.reduce((a, b) => (b.length > a.length ? b : a));
-
 export default function TypewriterBadge() {
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [typing, setTyping] = useState(true);
 
   useEffect(() => {
     const phrase = PHRASES[phraseIndex]!;
@@ -30,10 +27,7 @@ export default function TypewriterBadge() {
         i += 1;
         typeTimer = window.setTimeout(type, 55);
       } else {
-        pauseTimer = window.setTimeout(() => {
-          setTyping(false);
-          erase();
-        }, 1600);
+        pauseTimer = window.setTimeout(erase, 1600);
       }
     };
 
@@ -43,7 +37,6 @@ export default function TypewriterBadge() {
         i -= 1;
         eraseTimer = window.setTimeout(erase, 30);
       } else {
-        setTyping(true);
         setPhraseIndex((p) => (p + 1) % PHRASES.length);
       }
     };
@@ -59,17 +52,11 @@ export default function TypewriterBadge() {
 
   return (
     <p className="hl-hero__badge">
-      {/* Reserves the width of the longest phrase so the pill never resizes. */}
-      <span className="hl-hero__badge-sizer" aria-hidden>
-        {LONGEST}_
-      </span>
       <span className="hl-hero__badge-text">
         {text}
-        {typing ? (
-          <span className="hl-hero__caret" aria-hidden>
-            _
-          </span>
-        ) : null}
+        <span className="hl-hero__caret" aria-hidden>
+          _
+        </span>
       </span>
     </p>
   );

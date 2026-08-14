@@ -6,6 +6,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSplitTitle({ text }: { text: string }) {
   const reduceMotion = useReducedMotion();
+  // Разбиваем только по обычным пробелам: \u00a0 внутри фразы держит её строкой.
   const words = text.split(" ");
 
   if (reduceMotion) {
